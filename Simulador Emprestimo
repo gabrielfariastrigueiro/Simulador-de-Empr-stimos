@@ -1,0 +1,204 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimuladorEmprestimo {
+
+    public static void main(String[] args) {
+        // Criando a janela principal
+        JFrame frame = new JFrame("Simulador de Empréstimos Bancários");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLayout(new BorderLayout()); // Layout flexível com BorderLayout
+        
+        // Definindo cores e fontes
+        Color backgroundColor = new Color(0, 51, 102); // Azul escuro
+        Color primaryColor = new Color(255, 255, 255); // Branco
+        Color textColor = Color.WHITE;
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        Font titleFont = new Font("Arial", Font.BOLD, 18);
+        
+        // Título
+        JLabel titleLabel = new JLabel("BANCO GFT", SwingConstants.CENTER);
+        titleLabel.setFont(titleFont);
+        titleLabel.setForeground(primaryColor);
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(backgroundColor);
+        
+        // Painel para o conteúdo
+        JPanel panel = new JPanel();
+        panel.setBackground(backgroundColor);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
+        // Labels e campos de entrada
+        JLabel nomeLabel = new JLabel("Nome:");
+        nomeLabel.setForeground(primaryColor);
+        nomeLabel.setFont(font);
+        JTextField nomeField = new JTextField();
+
+        JLabel cpfLabel = new JLabel("CPF:");
+        cpfLabel.setForeground(primaryColor);
+        cpfLabel.setFont(font);
+        JTextField cpfField = new JTextField();
+
+        JLabel valorEmprestimoLabel = new JLabel("Valor do Empréstimo:");
+        valorEmprestimoLabel.setForeground(primaryColor);
+        valorEmprestimoLabel.setFont(font);
+        JTextField valorEmprestimoField = new JTextField();
+
+        JLabel taxaJurosLabel = new JLabel("Taxa de Juros Anual (%):");
+        taxaJurosLabel.setForeground(primaryColor);
+        taxaJurosLabel.setFont(font);
+        JTextField taxaJurosField = new JTextField();
+
+        JLabel periodoLabel = new JLabel("Período de Pagamento (meses):");
+        periodoLabel.setForeground(primaryColor);
+        periodoLabel.setFont(font);
+        JTextField periodoField = new JTextField();
+
+        JLabel rendaLabel = new JLabel("Renda Mensal:");
+        rendaLabel.setForeground(primaryColor);
+        rendaLabel.setFont(font);
+        JTextField rendaField = new JTextField();
+
+        // Botão de calcular
+        JButton calcularButton = new JButton("Calcular Parcela");
+        calcularButton.setFont(font);
+        calcularButton.setBackground(primaryColor);
+        calcularButton.setForeground(backgroundColor);
+
+        // Adicionando componentes ao painel com GridBagConstraints
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(nomeLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(nomeField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(cpfLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(cpfField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(valorEmprestimoLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(valorEmprestimoField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(taxaJurosLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(taxaJurosField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(periodoLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(periodoField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        panel.add(rendaLabel, gbc);
+        gbc.gridx = 1;
+        panel.add(rendaField, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        panel.add(calcularButton, gbc);
+
+        // Adicionando o título e o painel à janela principal
+        frame.add(titleLabel, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+
+        // Validação de entradas e ação do botão calcular
+        calcularButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Verificar se campos estão vazios
+                    if (nomeField.getText().trim().isEmpty() || cpfField.getText().trim().isEmpty() ||
+                        valorEmprestimoField.getText().trim().isEmpty() || taxaJurosField.getText().trim().isEmpty() ||
+                        periodoField.getText().trim().isEmpty() || rendaField.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(frame, "Todos os campos devem ser preenchidos.");
+                        return;
+                    }
+
+                    // Validação do nome
+                    if (!nomeField.getText().matches("[a-zA-Z ]+")) {
+                        JOptionPane.showMessageDialog(frame, "Por favor, insira um nome válido (apenas letras e espaços).");
+                        return;
+                    }
+
+                    // Validação do CPF
+                    if (!cpfField.getText().matches("\\d+")) {
+                        JOptionPane.showMessageDialog(frame, "Por favor, insira um CPF válido (apenas números).");
+                        return;
+                    }
+
+                    // Convertendo entradas para números
+                    double valorEmprestimo = Double.parseDouble(valorEmprestimoField.getText());
+                    double taxaJurosAnual = Double.parseDouble(taxaJurosField.getText());
+                    int periodoMeses = Integer.parseInt(periodoField.getText());
+                    double rendaMensal = Double.parseDouble(rendaField.getText());
+
+                    // Validação da elegibilidade
+                    if (valorEmprestimo > rendaMensal * 12 * 0.5) {
+                        JOptionPane.showMessageDialog(frame, "Empréstimo negado: Valor solicitado é muito alto em relação à sua renda.");
+                        return;
+                    }
+
+                    if (taxaJurosAnual < 6.0) {
+                        JOptionPane.showMessageDialog(frame, "Empréstimo negado: A taxa de juros deve ser no mínimo 6%.");
+                        return;
+                    }
+
+                    // Cálculo da parcela mensal
+                    double taxaJurosMensal = (taxaJurosAnual / 100) / 12;
+                    double parcelaMensal = (valorEmprestimo * taxaJurosMensal) /
+                                           (1 - Math.pow(1 + taxaJurosMensal, -periodoMeses));
+
+                    // Exibição do resultado da parcela mensal
+                    JOptionPane.showMessageDialog(frame, String.format("Sua parcela mensal será: R$ %.2f", parcelaMensal));
+
+                    // Oferecer opções de empréstimo se a parcela for alta em relação à renda
+                    if (parcelaMensal > rendaMensal * 0.3) {
+                        StringBuilder opcoes = new StringBuilder("A parcela mensal excede 30% da sua renda. Aqui estão algumas opções:\n");
+
+                        // Opção 1: Aumentar o período de pagamento
+                        int novoPeriodoMeses = periodoMeses + 12;
+                        double novaParcelaMensal = (valorEmprestimo * taxaJurosMensal) /
+                                                   (1 - Math.pow(1 + taxaJurosMensal, -novoPeriodoMeses));
+                        opcoes.append(String.format("Opção 1: Estender o período para %d meses. Nova parcela mensal: R$ %.2f%n",
+                                                    novoPeriodoMeses, novaParcelaMensal));
+
+                        // Opção 2: Reduzir o valor do empréstimo
+                        double novoValorEmprestimo = valorEmprestimo * 0.8;
+                        double novaParcela = (novoValorEmprestimo * taxaJurosMensal) /
+                                             (1 - Math.pow(1 + taxaJurosMensal, -periodoMeses));
+                        opcoes.append(String.format("Opção 2: Reduzir o valor do empréstimo para R$ %.2f. Nova parcela mensal: R$ %.2f%n",
+                                                    novoValorEmprestimo, novaParcela));
+
+                        // Exibição das opções
+                        JOptionPane.showMessageDialog(frame, opcoes.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Você está apto a prosseguir com o empréstimo nas condições solicitadas.");
+                    }
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, insira valores válidos.");
+                }
+            }
+        });
+
+        // Exibindo a janela
+        frame.setVisible(true);
+    }
+}
