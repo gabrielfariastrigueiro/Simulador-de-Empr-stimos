@@ -1,0 +1,32 @@
+ Simulador de Empréstimos Bancários: Uma Solução Elegante e Funcional
+
+O Simulador de Empréstimos Bancários** desenvolvido em Java é uma ferramenta prática e visualmente atraente para calcular e gerenciar empréstimos pessoais. Este software oferece uma interface gráfica intuitiva, utilizando o **Swing**, que proporciona uma experiência de usuário clara e moderna.
+
+Principais Funcionalidades:
+
+1. Interface Atraente e Responsiva:
+   - Design Moderno: Cores em azul e branco que lembram a identidade visual de grandes instituições financeiras.
+   - Layout Adaptável: O uso de `GridBagLayout` garante que os componentes da tela se ajustem adequadamente quando a janela é redimensionada, oferecendo uma visualização consistente em qualquer tamanho de tela.
+
+2. Validação de Dados:
+   - **Verificação de Campos:** Assegura que todos os campos sejam preenchidos e que as entradas sejam válidas, evitando erros comuns como valores em branco ou formatos incorretos.
+   - **Validação de Nome e CPF:** Garante que o nome contenha apenas letras e espaços, e que o CPF contenha apenas números.
+
+3. Cálculo Preciso de Empréstimos:
+   - **Cálculo de Parcelas:** Calcula o valor da parcela mensal com base no valor do empréstimo, taxa de juros anual e período de pagamento, seguindo a fórmula financeira padrão.
+   - **Opções Personalizadas:** Oferece sugestões de ajuste, como aumento do período de pagamento ou redução do valor do empréstimo, caso a parcela exceda 30% da renda mensal.
+
+4. Feedback Imediato:
+   - Mensagens de Erro: Informa ao usuário sobre entradas incorretas e requisitos não atendidos com mensagens claras e diretas.
+   - Resultados Calculados: Exibe o valor da parcela mensal de forma detalhada e fornece opções para ajustes, garantindo que o usuário tenha todas as informações necessárias para tomar decisões informadas.
+
+Benefícios:
+
+- Facilidade de Uso:** A interface gráfica facilita a interação e a compreensão dos dados inseridos.
+- Precisão e Confiabilidade:** A lógica robusta e as validações asseguram cálculos precisos e resultados confiáveis.
+- Flexibilidade:** A capacidade de ajustar as condições do empréstimo com base na renda e nas necessidades do usuário torna o simulador uma ferramenta versátil para diferentes cenários financeiros.
+
+Este simulador não apenas demonstra habilidades em programação Java e design de interfaces gráficas, mas também exemplifica a capacidade de criar soluções práticas e impactantes no setor financeiro.
+
+
+
